@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -21,9 +19,11 @@
 
   <!-- 页面元数据 -->
   
-  <title>Archive - Hexo</title>
+  <title>Hexo</title>
   
 
+  
+    <meta name="description" content="OneNetOneNET是由中国移动打造的PaaS物联网开放平台。平台能够帮助开发者轻松实现设备接入与设备连接，快速完成产品开发部署，为智能硬件、智能家居产品提供完善的物联网解决方案。OneNET针对个人用户免费，虽然有接入数量的限制，但不影响我们学习，登录OneNET官网进行注册登录并实名认证，方便后续使用。">
   
 
   <!-- feed -->
@@ -56,7 +56,7 @@
 <body>
   
 
-<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -311,7 +311,7 @@
     <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper  dock' style="display: ;">
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg"></div>
           
@@ -387,63 +387,234 @@
         
 
 <div class='l_main'>
-	
-	  <article id="arc" class="post article white-box reveal shadow">
-			
-			
-				
-				
-					
-						
-						<h2>2020</h2>
-					
-						<div class='timenode'>
-								<a class="meta" href="/2020/12/14/STM32+ESP8266+DHT11%E6%B8%A9%E6%B9%BF%E5%BA%A6%E4%B8%8A%E4%BC%A0OneNet/">
-									<time>12-14</time>
-									
-										2020-12-14
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2020/12/13/Markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/">
-									<time>12-13</time>
-									
-										2020-12-13
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2020/12/13/hello-world/">
-									<time>12-13</time>
-									
-										Hello World
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-	  </article>
-	
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+  </div>
+
+
+  
+  <h2 id="OneNet"><a href="#OneNet" class="headerlink" title="OneNet"></a>OneNet</h2><p>OneNET是由<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8/237216">中国移动</a>打造的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/PaaS">PaaS</a>物联网开放平台。平台能够帮助开发者轻松实现设备接入与设备连接，快速完成产品开发部署，为智能硬件、智能家居产品提供完善的物联网解决方案。OneNET针对个人用户免费，虽然有接入数量的限制，但不影响我们学习，登录<a target="_blank" rel="noopener" href="https://open.iot.10086.cn/">OneNET官网</a>进行注册登录并实名认证，方便后续使用。</p>
+<a id="more"></a>
+
+<h3 id="1-准备"><a href="#1-准备" class="headerlink" title="1. 准备"></a>1. 准备</h3><ul>
+<li>硬件：正点原子探索者开发板（STM32F407）、ATK-ESP8266-V1.3（WiFi模块）、USB转TTL模块、DHT11</li>
+<li>软件：正点原子8266固件、固件下载工具、串口调试助手、Keil5</li>
+</ul>
+<h3 id="2-固件下载接线"><a href="#2-固件下载接线" class="headerlink" title="2. 固件下载接线"></a>2. 固件下载接线</h3><table>
+<thead>
+<tr>
+<th align="center">WiFi模块</th>
+<th align="center">USB-TTL模块</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">VCC</td>
+<td align="center">VCC(+5V)</td>
+</tr>
+<tr>
+<td align="center">GND</td>
+<td align="center">GND</td>
+</tr>
+<tr>
+<td align="center">TXD</td>
+<td align="center">RXD</td>
+</tr>
+<tr>
+<td align="center">RXD</td>
+<td align="center">TXD</td>
+</tr>
+<tr>
+<td align="center">RST</td>
+<td align="center">不接</td>
+</tr>
+<tr>
+<td align="center">IO_0</td>
+<td align="center">GND(烧录固件库接地，联网时不接)</td>
+</tr>
+</tbody></table>
+<p>GND和IO_0一定要共地连接，不然烧写不成功。</p>
+<p>烧写工具和固件位置如下</p>
+<p><img src="https://s1.ax1x.com/2020/10/27/BlkADP.png" class="lazyload" data-srcset="https://s1.ax1x.com/2020/10/27/BlkADP.png" srcset="data:image/png;base64,666"></p>
+<p>双击打开<code>ESP_DOWNLOAD_TOOL_V2.4.exe</code>应用程序，配置如下，点击START进行烧录</p>
+<p><img src="https://s1.ax1x.com/2020/10/27/Blkkut.png" class="lazyload" data-srcset="https://s1.ax1x.com/2020/10/27/Blkkut.png" srcset="data:image/png;base64,666"></p>
+<p>烧录完成后插入STM32F407开发板相应接口即可，同样DHT11温湿度传感器也插入相应接口。</p>
+<h3 id="3-配置云端"><a href="#3-配置云端" class="headerlink" title="3. 配置云端"></a>3. 配置云端</h3><p>进入<a target="_blank" rel="noopener" href="https://open.iot.10086.cn/">OneNET官网</a>，点击<strong>控制台</strong>。</p>
+<p><img src="https://s1.ax1x.com/2020/10/27/BlkEHf.png" class="lazyload" data-srcset="https://s1.ax1x.com/2020/10/27/BlkEHf.png" srcset="data:image/png;base64,666"></p>
+<p>选择<strong>多协议接入</strong></p>
+<p><img src="https://s1.ax1x.com/2020/10/27/BlkijI.png" class="lazyload" data-srcset="https://s1.ax1x.com/2020/10/27/BlkijI.png" srcset="data:image/png;base64,666"></p>
+<p>点击<strong>添加产品</strong>，填写产品信息，这里我已经创建好了，所选配置如下</p>
+<p><img src="https://s1.ax1x.com/2020/10/27/BlkPgA.png" class="lazyload" data-srcset="https://s1.ax1x.com/2020/10/27/BlkPgA.png" srcset="data:image/png;base64,666"></p>
+<p>创建完成，这里的<strong>产品ID</strong>后续程序中要用到</p>
+<p><img src="https://s1.ax1x.com/2020/10/27/Blk99H.png" class="lazyload" data-srcset="https://s1.ax1x.com/2020/10/27/Blk99H.png" srcset="data:image/png;base64,666"></p>
+<p>点击创建的产品，<strong>设备列表-&gt;添加设备</strong></p>
+<p><img src="https://s1.ax1x.com/2020/10/27/BlkC3d.png" class="lazyload" data-srcset="https://s1.ax1x.com/2020/10/27/BlkC3d.png" srcset="data:image/png;base64,666"></p>
+<p>填写设备信息，这里的<strong>鉴权信息</strong>注意一下，后面程序要用到，我设置的设备名称和鉴权信息相同</p>
+<p><img src="https://s1.ax1x.com/2020/10/27/BlkS4e.png" class="lazyload" data-srcset="https://s1.ax1x.com/2020/10/27/BlkS4e.png" srcset="data:image/png;base64,666"></p>
+<p>添加完成状态如下，显示离线，<strong>设备ID</strong>后续程序也要用到</p>
+<p><img src="https://s1.ax1x.com/2020/10/27/BlFjHK.png" class="lazyload" data-srcset="https://s1.ax1x.com/2020/10/27/BlFjHK.png" srcset="data:image/png;base64,666"></p>
+<p>至此云端配置完成，下面看程序。</p>
+<h3 id="4-软件程序"><a href="#4-软件程序" class="headerlink" title="4. 软件程序"></a>4. 软件程序</h3><p>工程结构如下，ESP8266模块用到的是开发板上的串口3，<code>onenet.c</code>用于和OneNet平台之间的数据交互，程序我还没仔细看，感觉这个应该是发送数据上云的重点部分，加关注！！<code>MqttKit.c</code>应该是MQTT工具包，MQTT是一种通信协议，可以先不管，这里是直接拿过来用，<code>eap8266.c</code>是ESP8266的简单驱动和初始化。</p>
+<p><img src="https://s1.ax1x.com/2020/10/27/BlFbcR.png" class="lazyload" data-srcset="https://s1.ax1x.com/2020/10/27/BlFbcR.png" srcset="data:image/png;base64,666"></p>
+<p>需要修改的地方有，这里改成你们自己的WiFi名称和密码</p>
+<p><img src="https://s1.ax1x.com/2020/10/27/BlFH39.png" class="lazyload" data-srcset="https://s1.ax1x.com/2020/10/27/BlFH39.png" srcset="data:image/png;base64,666"></p>
+<p>这里改成前面强调的三个信息，根据前面创建的信息修改</p>
+<p><img src="https://s1.ax1x.com/2020/10/27/BlF79J.png" class="lazyload" data-srcset="https://s1.ax1x.com/2020/10/27/BlF79J.png" srcset="data:image/png;base64,666"></p>
+<p>配置完成，烧写程序到开发板上。</p>
+<p>配置完成后，电脑连上设备，选择正确的端口号和波特率，点击<strong>START</strong>开始烧入。</p>
+<p>进度条走完，显示<strong>FINSH</strong>，固件下载成功。</p>
+<h3 id="5-显示结果"><a href="#5-显示结果" class="headerlink" title="5. 显示结果"></a>5. 显示结果</h3><p>正常的话，屏幕上可以显示温湿度</p>
+<p><img src="https://s1.ax1x.com/2020/10/27/BlkZE8.png" class="lazyload" data-srcset="https://s1.ax1x.com/2020/10/27/BlkZE8.png" srcset="data:image/png;base64,666"></p>
+<p>打开串口调试助手，可看到以下信息</p>
+<p><img src="https://s1.ax1x.com/2020/10/27/BlFqj1.png" class="lazyload" data-srcset="https://s1.ax1x.com/2020/10/27/BlFqj1.png" srcset="data:image/png;base64,666"></p>
+<p>回到OneNet云端，设备显示在线</p>
+<p><img src="https://s1.ax1x.com/2020/10/27/BlFxAO.png" class="lazyload" data-srcset="https://s1.ax1x.com/2020/10/27/BlFxAO.png" srcset="data:image/png;base64,666"></p>
+<p>点击数据流，可查看ESP8266上传的温湿度数据</p>
+<p><img src="https://s1.ax1x.com/2020/10/27/BlFzND.png" class="lazyload" data-srcset="https://s1.ax1x.com/2020/10/27/BlFzND.png" srcset="data:image/png;base64,666"></p>
+<p>设备正常运行，大家接着进行后续开发吧！！！</p>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=http://example.com/2020/12/14/STM32+ESP8266+DHT11%E6%B8%A9%E6%B9%BF%E5%BA%A6%E4%B8%8A%E4%BC%A0OneNet/>http://example.com/2020/12/14/STM32+ESP8266+DHT11%E6%B8%A9%E6%B9%BF%E5%BA%A6%E4%B8%8A%E4%BC%A0OneNet/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-14T16:17:39+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Dec 14, 2020</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/2020/12/14/STM32+ESP8266+DHT11%E6%B8%A9%E6%B9%BF%E5%BA%A6%E4%B8%8A%E4%BC%A0OneNet/&title= - Hexo&summary=OneNetOneNET是由中国移动打造的PaaS物联网开放平台。平台能够帮助开发者轻松实现设备接入与设备连接，快速完成产品开发部署，为智能硬件、智能家居产品提供完善的物联网解决方案。OneNET针对个人用户免费，虽然有接入数量的限制，但不影响我们学习，登录OneNET官网进行注册登录并实名认证，方便后续使用。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/2020/12/14/STM32+ESP8266+DHT11%E6%B8%A9%E6%B9%BF%E5%BA%A6%E4%B8%8A%E4%BC%A0OneNet/&title= - Hexo&summary=OneNetOneNET是由中国移动打造的PaaS物联网开放平台。平台能够帮助开发者轻松实现设备接入与设备连接，快速完成产品开发部署，为智能硬件、智能家居产品提供完善的物联网解决方案。OneNET针对个人用户免费，虽然有接入数量的限制，但不影响我们学习，登录OneNET官网进行注册登录并实名认证，方便后续使用。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/2020/12/14/STM32+ESP8266+DHT11%E6%B8%A9%E6%B9%BF%E5%BA%A6%E4%B8%8A%E4%BC%A0OneNet/&title= - Hexo&summary=OneNetOneNET是由中国移动打造的PaaS物联网开放平台。平台能够帮助开发者轻松实现设备接入与设备连接，快速完成产品开发部署，为智能硬件、智能家居产品提供完善的物联网解决方案。OneNET针对个人用户免费，虽然有接入数量的限制，但不影响我们学习，登录OneNET官网进行注册登录并实名认证，方便后续使用。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2020/12/13/Markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/'>
+          <p class='title'><i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>什么是MarkdownMarkdown是一种轻量级标记语言，创始人为约翰·格鲁伯（英语：John Gruber）。 它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者H...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -451,87 +622,28 @@
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/Logo-NavBar@3x.png'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">Hexo</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:me@xxx.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/volantis-x/"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
+  <header>
     
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
 
-  
 
-  
-    
-    
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#OneNet"><span class="toc-text">OneNet</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%87%86%E5%A4%87"><span class="toc-text">1. 准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%9B%BA%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%8E%A5%E7%BA%BF"><span class="toc-text">2. 固件下载接线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%85%8D%E7%BD%AE%E4%BA%91%E7%AB%AF"><span class="toc-text">3. 配置云端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%BD%AF%E4%BB%B6%E7%A8%8B%E5%BA%8F"><span class="toc-text">4. 软件程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%98%BE%E7%A4%BA%E7%BB%93%E6%9E%9C"><span class="toc-text">5. 显示结果</span></a></li></ol></li></ol>
+    </div>
+  </section>
 
-  
 
   
 
 
 </aside>
+
 
 
         
@@ -548,7 +660,7 @@
 
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.remove("show");
+  l_header.classList.add("show");
   
 </script>
 
